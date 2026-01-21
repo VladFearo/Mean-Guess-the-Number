@@ -1,4 +1,3 @@
-````md
 # Mean Guess the Number
 
 A tiny terminal game written in Node.js.
@@ -10,7 +9,6 @@ The program picks a number between **1–100**. You have **7 attempts** to guess
 ```bash
 node meanGuessTheNumber.js
 ```
-````
 
 Node.js v16+ recommended.
 
@@ -36,7 +34,3 @@ Node.js v16+ recommended.
 ## Status
 
 Playable core loop. No polish, no persistence, no dependencies. This is a small, sealed CLI exercise.
-
-```
-
-```
