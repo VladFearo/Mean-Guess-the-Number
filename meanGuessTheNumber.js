@@ -11,6 +11,22 @@ function ask(question) {
   });
 }
 
+function tempCalc(d) {
+  if (d > 0 && d < 3) {
+    return "Scorching.";
+  } else if (d > 2 && d < 6) {
+    return "Hot.";
+  } else if (d > 5 && d < 11) {
+    return "Warm.";
+  } else if (d > 10 && d < 21) {
+    return "Lukewarm.";
+  } else if (d > 20 && d < 36) {
+    return "Cold.";
+  } else {
+    return "Freezing.";
+  }
+}
+
 const secret = Math.floor(Math.random() * 100) + 1;
 const maxAttempts = 7;
 let currAttempts = 0;
@@ -22,6 +38,7 @@ console.log(`
     Enter a guess or 'q' to quit.
     `);
 async function main() {
+  let won = false;
   while (currAttempts < maxAttempts) {
     const input = await ask(
       `Guess (attempts left: ${maxAttempts - currAttempts}): `,
@@ -36,6 +53,9 @@ async function main() {
 
     if (Number.isNaN(guess)) {
       console.log("Not a number. Try again.");
+      continue;
+    } else if (!Number.isInteger(guess)) {
+      console.log("Invalid input. Enter a whole number 1–100.");
       continue;
     } else if (guess < 1 || guess > 100) {
       console.log("Out of range. Use 1–100.");
@@ -52,22 +72,30 @@ async function main() {
         6: "Messy",
         7: "Messy",
       };
-      console.log(`Correct.
-            Attempts used: ${currAttempts}
-            Verdict: ${verdict[currAttempts]}`);
+      console.log(
+        `Correct.\nAttempts used: ${currAttempts}\nVerdict: ${verdict[currAttempts]}`,
+      );
+      won = true;
       break;
     }
 
     if (prevGuesses.includes(guess)) {
       console.log("You already tried that. Stop looping.");
+      continue;
     } else {
       prevGuesses.push(guess);
     }
-
+    const higherLower = guess > secret ? "Lower." : "Higher.";
+    console.log(higherLower);
     const d = Math.abs(secret - guess);
-
-    console.log("You said:", input);
+    const temperature = tempCalc(d);
+    console.log(temperature);
     console.log(); // empty line for spacing
+  }
+  if (!won && currAttempts === maxAttempts) {
+    console.log(`You lost. The number was ${secret}.
+Your guesses: ${prevGuesses.join(", ")}
+`);
   }
 
   rl.close();
