@@ -12,19 +12,12 @@ function ask(question) {
 }
 
 function tempCalc(d) {
-  if (d > 0 && d < 3) {
-    return "Scorching.";
-  } else if (d > 2 && d < 6) {
-    return "Hot.";
-  } else if (d > 5 && d < 11) {
-    return "Warm.";
-  } else if (d > 10 && d < 21) {
-    return "Lukewarm.";
-  } else if (d > 20 && d < 36) {
-    return "Cold.";
-  } else {
-    return "Freezing.";
-  }
+  if (d <= 2) return "Scorching.";
+  if (d <= 5) return "Hot.";
+  if (d <= 10) return "Warm.";
+  if (d <= 20) return "Lukewarm.";
+  if (d <= 35) return "Cold.";
+  return "Freezing.";
 }
 
 const secret = Math.floor(Math.random() * 100) + 1;
